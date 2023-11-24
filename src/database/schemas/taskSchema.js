@@ -14,12 +14,12 @@ const taskSchema = new Schema({
 
     iduser:{
         type: String,
-        requerid: true
+        required: true
     },
 
     isCompleted: {
         type: Boolean,
-        dafault: false      
+        default: false      
     }
 });
 

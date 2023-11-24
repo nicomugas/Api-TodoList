@@ -24,10 +24,10 @@ module.exports = async (req, res) => {
     process.env.SECRET_TOKEN
   );
 
-  res.header("authtoken", token);
   response(res, 201, {
-    message:"successful login",
+    message: "successful login",
     id: existUser._id,
     user: existUser.user,
+    token
   });
 };
