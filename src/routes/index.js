@@ -4,7 +4,7 @@ const middlewares = require('../middlewares');
 
 const router = Router();
 
-// rutas de task
+
 /**
  *@swagger 
  * components:
@@ -32,14 +32,37 @@ const router = Router();
  *      example:
  *         title: expensas
  *         description: pagar $1000 
- *         isCompleted: false
+ *         isCompleted: false 
+ *    User:
+ *      type: object
+ *      properties:
+ *        user: 
+ *          type: string
+ *          description: usuario
+ *        password:
+ *          type: string
+ *          description: contreña
+ *      required:
+ *      - user
+ *      - password
+ *      example:
+ *         user: nicolas
+ *         password: nico123 
+ *  securitySchemes:
+ *      bearerAuth:           
+ *          type: http
+ *          scheme: bearer
+ *          bearerFormat: JWT   
  */
 
+ // rutas de task
 
 /**
  * @swagger
  * /task:
- *  get: 
+ *  get:
+ *      security:
+ *       -  bearerAuth: []
  *      summary: retorna todas las tareas del usuario. 
  *      tags: [Task]
  *      parameters:
@@ -51,11 +74,7 @@ const router = Router();
  *          name: page
  *          type: integer
  *          description: Indica el nro de pagina que devuelve.
- *       -  in: header
- *          name: authtoken
- *          type: string
- *          description: Token del usuario.  
-  *      responses:
+ *      responses:
  *        200:
  *          description: todas las tareas del usuario con parametros para ordenamiento y paginacion
  *          content:
@@ -71,7 +90,9 @@ router.get("/task/", middlewares.tokenValidation, controllers.getAllTasks);
 /**
  * @swagger
  * /task:
- *  post: 
+ *  post:
+ *      security:
+ *       -  bearerAuth: []
  *      summary: crea una nueva tarea. 
  *      tags: [Task]
  *      requestBody:
@@ -101,7 +122,9 @@ router.post("/task/",middlewares.tokenValidation, middlewares.taskValidation, co
 /**
  * @swagger
  * /task/{id}:
- *  put: 
+ *  put:
+ *      security:
+ *       -  bearerAuth: []
  *      summary: actualiza una tarea. 
  *      tags: [Task]
  *      requestBody:
@@ -110,12 +133,7 @@ router.post("/task/",middlewares.tokenValidation, middlewares.taskValidation, co
  *          application/json:
  *            schema:
  *              type: object
- *              $ref: '#/components/schemas/Task'     
- *      parameters:
- *       -  in: header
- *          name: authtoken
- *          type: string
- *          description: Token del usuario.        
+ *              $ref: '#/components/schemas/Task'    
  *      responses:
  *        200:
  *          description: tarea actualizada     
@@ -125,6 +143,8 @@ router.put("/task/:id",middlewares.tokenValidation,middlewares.taskValidation, c
  * @swagger
  * /task/{id}:
  *  delete: 
+ *      security:
+ *       -  bearerAuth: []
  *      summary: elimina una tarea. 
  *      tags: [Task]
  *      requestBody:
@@ -133,12 +153,7 @@ router.put("/task/:id",middlewares.tokenValidation,middlewares.taskValidation, c
  *          application/json:
  *            schema:
  *              type: object
- *              $ref: '#/components/schemas/Task'     
- *      parameters:
- *       -  in: header
- *          name: authtoken
- *          type: string
- *          description: Token del usuario.        
+ *              $ref: '#/components/schemas/Task'            
  *      responses:
  *        200:
  *          description: tarea eliminada     
@@ -147,27 +162,7 @@ router.delete("/task/:id",middlewares.tokenValidation, controllers.deleteTask);
 
 //rutas de user
 
-/**
- *@swagger 
- * components:
- *  schemas:
- *    User:
- *      type: object
- *      properties:
- *        user: 
- *          type: string
- *          description: usuario
- *        password:
- *          type: string
- *          description: contreña
- *      required:
- *      - user
- *      - password
- *      example:
- *         user: nico
- *         password: nico123
- *         
- */
+
 
 /**
  * @swagger

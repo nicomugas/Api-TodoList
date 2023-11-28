@@ -28,6 +28,6 @@ module.exports = async (req, res) => {
     message: "successful login",
     id: existUser._id,
     user: existUser.user,
-    token
+    token //lo paso para prueba. 
   });
 };
